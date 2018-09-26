@@ -11,6 +11,18 @@ export default class List extends Component {
         users: []
     }
 
+    deleteUserById = () => {
+        let id
+        console.log("id", this);
+        if (id) {
+            axios.delete(`http://localhost:3001/users/${id}`)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                })
+        }
+    }
+
     componentDidMount() {
         axios.get(`http://localhost:3001/users`)
             .then(res => {
@@ -33,7 +45,7 @@ export default class List extends Component {
                             {/* <span  className="glyphicon glyphicon-pencil"></span> */}
                             Editar
                         </button>
-                        <button type="button" className="btn btn-danger small">
+                        <button onClick={this.deleteUserById} type="button" className="btn btn-danger small">
                             {/* <span class="glyphicon">&#xe020;</span> */}
                             Deletar
                         </button>

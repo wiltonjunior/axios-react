@@ -13,10 +13,6 @@ export default class Add extends Component {
         password: ''
     }
 
-    // handleUser = event => {
-    //     this.setState({ name: event.target.value });
-    // }
-
     handleChange(field) {
         return (event) => {
             this.setState({ [field]: event.target.value });
