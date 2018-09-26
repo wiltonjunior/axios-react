@@ -24,14 +24,14 @@
 }
 
 .up {
-  margin-top: 50px
+  margin-top: 30px
 }
 
 .up-component{
   margin-top: 10px
 }
 
-.btn {
+.listComponet .btn {
   margin-left: 10px;
 }
 
@@ -46,3 +46,4 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+

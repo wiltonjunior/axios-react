@@ -1,9 +1,7 @@
-// List.js
+// Add.js
 
 import React, { Component } from 'react';
 import axios from 'axios';
-
-import '../../App.css';
 
 export default class Add extends Component {
 
@@ -27,9 +25,6 @@ export default class Add extends Component {
             email: this.state.email,
             password: this.state.password
         };
-
-        console.log(user);
-
         axios.post(`http://localhost:3001/users`, user)
             .then(res => {
                 console.log(res);

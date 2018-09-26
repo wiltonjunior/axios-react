@@ -3,22 +3,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import '../../App.css';
-
 export default class List extends Component {
 
     state = {
         users: []
     }
 
-    deleteUserById = () => {
-        let id
-        console.log("id", this);
+    deleteUserById = (id) => {
         if (id) {
             axios.delete(`http://localhost:3001/users/${id}`)
                 .then(res => {
-                    console.log(res);
-                    console.log(res.data);
+                    this.componentDidMount();
                 })
         }
     }
@@ -27,9 +22,8 @@ export default class List extends Component {
         axios.get(`http://localhost:3001/users`)
             .then(res => {
                 const users = res.data;
-                console.log(users)
                 this.setState({ users });
-            })
+            })    
     }
 
     render() {
@@ -45,7 +39,7 @@ export default class List extends Component {
                             {/* <span  className="glyphicon glyphicon-pencil"></span> */}
                             Editar
                         </button>
-                        <button onClick={this.deleteUserById} type="button" className="btn btn-danger small">
+                        <button onClick={()=> this.deleteUserById(item._id) } type="button" className="btn btn-danger small">
                             {/* <span class="glyphicon">&#xe020;</span> */}
                             Deletar
                         </button>
@@ -56,7 +50,7 @@ export default class List extends Component {
 
 
         return (
-            <div className="up-component">
+            <div className="up-component listComponet">
                 <table className="table table-striped">
                     <thead>
                         <tr>
