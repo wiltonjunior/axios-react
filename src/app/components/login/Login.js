@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
-import axios from 'axios';
+import { axiosInstanceLogin } from '+/app/config';
 
 import "./Login.css";
 
@@ -29,15 +30,21 @@ export default class Login extends Component {
   handleSubmit = event => {
    
     event.preventDefault();
+
     const user = {
         email: this.state.email,
         password: this.state.password
     };
-    axios.post(`http://localhost:3001/login`, user)
+
+    axiosInstanceLogin.post(`/login`, user)
         .then(res => {
-            console.log(res.data);
-            this.props.history.push('/user')
-        })
+            sessionStorage.setItem('token', `Bearer ${res.data.token}`);
+            this.props.history.push('/users')
+        }).catch((error) => {
+          if(error.response.status === 400){
+              alert(error.response.data.error)
+          }
+      });
   }
 
   render() {

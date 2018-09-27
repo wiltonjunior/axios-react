@@ -1,7 +1,8 @@
 // List.js
 
 import React, { Component } from 'react';
-import axios from 'axios';
+
+import { axiosInstance } from '+/app/config'
 
 export default class List extends Component {
 
@@ -11,19 +12,34 @@ export default class List extends Component {
 
     deleteUserById = (id) => {
         if (id) {
-            axios.delete(`http://localhost:3001/users/${id}`)
+            axiosInstance.delete(`/users/${id}`)
                 .then(res => {
                     this.componentDidMount();
-                })
+                }).catch((error) => {
+                    if(error.response.status === 401){
+                        this.props.history.push(`/`);
+                        alert(error.response.data.error)
+                    }
+                });
         }
     }
 
+    goToEdit = (id) => {
+        this.props.history.push(`/users/${id}`);
+    }
+
     componentDidMount() {
-        axios.get(`http://localhost:3001/users`)
+        axiosInstance.get(`/users`)
             .then(res => {
+                console.log(res.status)
                 const users = res.data;
                 this.setState({ users });
-            })    
+            }).catch((error) => {
+                if(error.response.status === 401){
+                    this.props.history.push(`/`);
+                    alert(error.response.data.error)
+                }
+            });
     }
 
     render() {
@@ -35,7 +51,7 @@ export default class List extends Component {
                     <td>{item.name}</td>
                     <td>{item.email}</td>
                     <td>
-                        <button type="button" className="btn btn-primary small">
+                        <button onClick={()=> this.goToEdit(item._id)} type="button" className="btn btn-primary small">
                             {/* <span  className="glyphicon glyphicon-pencil"></span> */}
                             Editar
                         </button>

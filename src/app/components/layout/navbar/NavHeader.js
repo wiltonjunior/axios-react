@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 import { Link } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
 
 import './NavHeader.css';  
 
@@ -14,45 +13,31 @@ export default class NavHeader extends Component {
 
   }
 
-  goToLogin = () =>  {
-    this.props.history.push('/')
-  }
-
-   selectName = () => {
-    this.setState(() => {
-        this.props.history.push('about');
-    });
-}
-
-  goToUser = () => {
-    this.props.history.push('/user')
+  singUp() {
+    sessionStorage.setItem('token', '');
+    this.props.history.push('/');
   }
 
   render() {
     return (
         <div className="App">
-          <Navbar fluid collapseOnSelect>
-            <Navbar.Header>
-              <Navbar.Brand>
-                <Link to="/">Scratch</Link>
-              </Navbar.Brand>
-              <Navbar.Toggle />
-            </Navbar.Header>
-            <Navbar.Collapse>
-              <Nav pullRight>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
 
-           <ul className="nav navbar-nav navbar-right">
-           <li role="presentation">
-           <a  onClick={() => this.selectName()}>Home</a></li>
-           <li role="presentation">
-           <a onClick={() => this.goToLogin()}>Login</a>
-           </li>
-           </ul>
+    <Link className='navbar-brand' to='/users'>React Up</Link>
 
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
-        </div>
+  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul className="navbar-nav ml-auto">
+      <li className="nav-item active">
+
+      </li>
+      <li className="nav-item">
+        <Link onClick={this.singUp} className='nav-link' to='/'>Sigup</Link>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+         </div>
       );
   }
 }

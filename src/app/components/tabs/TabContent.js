@@ -11,10 +11,10 @@ export default class TabContent extends Component {
             <div className="container up">
                 <TabList>
                     <div label="Lista de Usuários" className="tab-content">
-                        <List/>
+                        <List {...this.props}/>
                     </div>
                     <div label="Adicionar Usuário" className="tab-content">
-                        <Add/>
+                        <Add {...this.props}/>
                     </div>
                 </TabList>
             </div>

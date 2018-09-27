@@ -1,0 +1,11 @@
+{
+    "compillerOptions":{
+        "target": "ES6",
+        "module": "commonjs",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "psths": {
+            "+/*": ["./src/*"]
+        }
+    }
+}

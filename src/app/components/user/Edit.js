@@ -7,9 +7,32 @@ import { axiosInstance } from '+/app/config'
 export default class Add extends Component {
 
     state = {
-        user: '',
+        id: '',
+        name: '',
         email: '',
         password: ''
+    }
+
+    componentDidMount() {
+        const id = this.props.match.params.id;
+        axiosInstance.get(`/users/${id}`)
+        .then(res => {
+            let data = res.data;
+            this.setState({
+                id: data._id,
+                name: data.name,
+                email: data.email
+            });
+        }).catch((error) => {
+            if(error.response.status === 401){
+                this.props.history.push(`/`);
+                alert(error.response.data.error)
+            }
+        });
+    }
+
+    goToList = () => {
+        this.props.history.push('/users');
     }
 
     handleChange(field) {
@@ -26,9 +49,10 @@ export default class Add extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        axiosInstance.post(`/users`, user)
+
+        axiosInstance.put(`/users/${this.state.id}`, user)
             .then(res => {
-                console.log(res.data);
+                this.goToList();
             }).catch((error) => {
                 if(error.response.status === 401){
                     this.props.history.push(`/`);
@@ -40,17 +64,16 @@ export default class Add extends Component {
     render() {
 
         return (
-            <div className="up-component">
+            <div className="up-component container">
                 <form onSubmit={this.handleSubmit}>
-                
                     <div className="col-md-12 row">
                         <div className="form-group col-md-6">
                             <label>Name</label>
-                            <input type="text" className="form-control" id="name" name="name" onChange={this.handleChange('name')} aria-describedby="nameHelp" placeholder="Enter name" />
+                            <input type="text" className="form-control" id="name" name="name" value={this.state.name} onChange={this.handleChange('name')} aria-describedby="nameHelp" placeholder="Enter name" />
                         </div>
                         <div className="form-group col-md-6">
                             <label>Email address</label>
-                            <input type="email" className="form-control" id="email" name="email" onChange={this.handleChange('email')} aria-describedby="emailHelp" placeholder="Enter email" />
+                            <input type="email" className="form-control" id="email" name="email" value={this.state.email} onChange={this.handleChange('email')} aria-describedby="emailHelp" placeholder="Enter email" />
                             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
                     </div>
@@ -64,10 +87,10 @@ export default class Add extends Component {
 
                     <div className="col-md-12 row">
                         <div className='col-md-6'> 
-     
+                            <button onClick={this.goToList} type="button" className="btn btn-primary">Voltar</button>
                         </div>
                         <div className='col-md-6 text-right'>
-                            <button type="submit" className="btn btn-primary">Enviar</button>
+                            <button type="submit" className="btn btn-primary">Atualizar</button>
                         </div>
                     </div>
 
