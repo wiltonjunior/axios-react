@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { axiosInstance } from '+/app/config'
+import { http } from '+/app/config'
 
 export default class Add extends Component {
 
@@ -15,7 +15,7 @@ export default class Add extends Component {
 
     componentDidMount() {
         const id = this.props.match.params.id;
-        axiosInstance.get(`/users/${id}`)
+        http.get(`/users/${id}`)
         .then(res => {
             let data = res.data;
             this.setState({
@@ -50,7 +50,7 @@ export default class Add extends Component {
             password: this.state.password
         };
 
-        axiosInstance.put(`/users/${this.state.id}`, user)
+        http.put(`/users/${this.state.id}`, user)
             .then(res => {
                 this.goToList();
             }).catch((error) => {

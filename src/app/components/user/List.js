@@ -2,7 +2,9 @@
 
 import React, { Component } from 'react';
 
-import { axiosInstance } from '+/app/config'
+import { http } from '+/app/config'
+
+
 
 export default class List extends Component {
 
@@ -12,7 +14,7 @@ export default class List extends Component {
 
     deleteUserById = (id) => {
         if (id) {
-            axiosInstance.delete(`/users/${id}`)
+          http.delete(`/users/${id}`)
                 .then(res => {
                     this.componentDidMount();
                 }).catch((error) => {
@@ -29,7 +31,7 @@ export default class List extends Component {
     }
 
     componentDidMount() {
-        axiosInstance.get(`/users`)
+        http.get(`/users`)
             .then(res => {
                 console.log(res.status)
                 const users = res.data;

@@ -8,14 +8,9 @@ import './NavHeader.css';
 
 export default class NavHeader extends Component {
 
-  constructor(props) {
-    super(props);
-
-  }
-
   singUp() {
-    sessionStorage.setItem('token', '');
-    this.props.history.push('/');
+    sessionStorage.clear();
+    //this.props.history.push('/');
   }
 
   render() {
@@ -31,7 +26,7 @@ export default class NavHeader extends Component {
 
       </li>
       <li className="nav-item">
-        <Link onClick={this.singUp} className='nav-link' to='/'>Sigup</Link>
+        <Link onClick={this.singUp} className='nav-link' to='/'>Login</Link>
       </li>
     </ul>
 

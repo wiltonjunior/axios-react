@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
-import { axiosInstanceLogin } from '+/app/config';
+import { httpLogin } from '+/app/config';
 
 import "./Login.css";
 
 export default class Login extends Component {
+
   constructor(props) {
     super(props);
 
@@ -36,7 +37,7 @@ export default class Login extends Component {
         password: this.state.password
     };
 
-    axiosInstanceLogin.post(`/login`, user)
+    httpLogin.post(`/login`, user)
         .then(res => {
             sessionStorage.setItem('token', `Bearer ${res.data.token}`);
             this.props.history.push('/users')
@@ -71,6 +72,13 @@ export default class Login extends Component {
           <Button block bsSize="large" disabled={!this.validateForm()} type="submit">
             Login
           </Button>
+          <br/>
+          <div className="col-md-12 text-center">
+              <p>
+              Inscreva-se Agora - <Link to='/signup'>Sign up</Link>
+               </p>
+          </div>
+          
         </form>
       </div>
     );
